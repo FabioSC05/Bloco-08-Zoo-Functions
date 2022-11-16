@@ -39,16 +39,8 @@ const validateDay = (day) => {
 
 const empty = (one, two) => !one && !two;
 
-const fix12 = (hour, open, close) => ({
-  h: (hour === 12) ? 0 : hour,
-  o: (open === 12) ? 0 : open,
-  c: (close === 12) ? 0 : close,
-});
-
-const openOrClosed = (period, hour, open, close) => {
-  const { o, c, h } = fix12(hour, open, close);
-  return (period === 'AM' && h >= o) || (period === 'PM' && h < c);
-};
+const openOrClosed = (period, hour, open, close) =>
+  (period === 'AM' && hour >= open) || (period === 'PM' && hour < close);
 
 const getOpeningHours = (day, dataHour) => {
   if (empty(day, dataHour)) return hours;
